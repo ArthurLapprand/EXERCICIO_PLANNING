@@ -5,7 +5,8 @@
 		(at ?obj ?loc)
 		(on ?obj1 ?obj2)
 		(not_holding ?obj1 ?obj2)
-		(at_altura ?obj ?altura)
+		(at_altura ?obj ?altura))
+  
   (:action EMPURRAR_CAIXA
 	:parameters
 		 (?caixa - CAIXA
@@ -42,9 +43,9 @@
 		(and
 			(at ?macaco ?loc) 
 			(at ?banana ?loc)
-			not(not_holding ?macaco ?banana))
+			(not(not_holding ?macaco ?banana))
 			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura)
+			(at_altura ?banana ?altura))
 	:effect
    		(and
    			(not (at ?macaco ?loc))
@@ -62,48 +63,54 @@
 		 ?loc - LOCALIZACAO
 		 ?altura - ALTURA)
 	:precondition
-		(and    (at ?truck ?loc) 
-			(in ?obj ?truck))
+		(and
+			(at ?macaco ?loc)
+			(at ?banana ?loc)
+			(on ?macaco ?caixa)
+			(not_holding ?macaco ?banana)
+			(at_altura ?macaco ?altura)
+			(at_altura ?banana ?altura))
 	:effect
-		(and	(not (in ?obj ?truck)) 
-			(at ?obj ?loc)))
+		(and
+			(at ?macaco ?loc)
+			(at ?banana ?loc)
+			(not(not_holding ?macaco ?banana))
+			(at_altura ?macaco ?altura)
+			(at_altura ?banana ?altura)))
 
-  (:action UNLOAD-AIRPLANE
+  (:action SUBIR_CAIXA
 	:parameters
-		(?obj - PACKAGE
-		 ?airplane - AIRPLANE
-		 ?loc - AIRPORT)
+		(?caixa - CAIXA
+		 ?macaco - MACACO
+		 ?loc - LOCALIZACAO
+		 ?altura - ALTURA
+		 ?altura2 - ALTURA)
 	:precondition
-		(and	(in ?obj ?airplane) 
-			(at ?airplane ?loc))
+		(and
+			(at ?macaco ?loc)
+			(at ?caixa ?loc)
+			(at_altura ?macaco ?altura))
 	:effect
-		(and 
-			(not (in ?obj ?airplane)) 
-			(at ?obj ?loc)))
+		(and
+			(at ?macaco ?loc)
+			(at ?caixa ?loc)
+			(at_altura ?macaco ?altura2)))
 
-  (:action DRIVE-TRUCK
+(:action DESCER_CAIXA
 	:parameters
-		(?truck - TRUCK
-		 ?loc-from - LOCATION
-		 ?loc-to - LOCATION
-		 ?city - CITY)
+		(?caixa - CAIXA
+		 ?macaco - MACACO
+		 ?loc - LOCALIZACAO
+		 ?altura - ALTURA
+		 ?altura2 - ALTURA)
 	:precondition
-		(and 	(at ?truck ?loc-from)
-			(in-city ?loc-from ?city)
-			(in-city ?loc-to ?city))
+		(and
+			(at ?macaco ?loc)
+			(at ?caixa ?loc)
+			(at_altura ?macaco ?altura2))
 	:effect
-		(and 	(not (at ?truck ?loc-from)) 
-			(at ?truck ?loc-to)))
-
-  (:action FLY-AIRPLANE
-	:parameters
-		(?airplane - AIRPLANE
-		 ?loc-from - AIRPORT
-		 ?loc-to - AIRPORT)
-	:precondition
-		(at ?airplane ?loc-from)
-	:effect
-		(and 	(not (at ?airplane ?loc-from)) 
-		(at ?airplane ?loc-to)))
+		(and
+			(at ?macaco ?loc)
+			(at ?caixa ?loc)
+			(at_altura ?macaco ?altura)))
 )
-

@@ -1,148 +1,28 @@
 blackbox version 42
-command line:  blackbox -o domain.pddl -f prob004-log-a.pddl
+command line:  blackbox -o monkey_domain.pddl -f  monkey_facts.pddl
 
 Begin solver specification
     -maxint        0   -maxsec 10.000000  graphplan
     -maxint        0   -maxsec 0.000000  chaff
 End solver specification
-Loading domain file: domain.pddl
-Loading fact file: prob004-log-a.pddl
-Problem name: log004
+Loading domain file: monkey_domain.pddl
+Loading fact file: monkey_facts.pddl
+Problem name: macacos-me-mordam
 Facts loaded.
-time: 1, 34 facts and 25 exclusive pairs.
-time: 2, 34 facts and 17 exclusive pairs.
-time: 3, 42 facts and 41 exclusive pairs.
-time: 4, 58 facts and 159 exclusive pairs.
-time: 5, 58 facts and 127 exclusive pairs.
-time: 6, 74 facts and 177 exclusive pairs.
-time: 7, 90 facts and 313 exclusive pairs.
-time: 8, 90 facts and 297 exclusive pairs.
-time: 9, 106 facts and 465 exclusive pairs.
-Goals first reachable in 9 steps.
-2047 nodes created.
+time: 1, 8 facts and 0 exclusive pairs.
+time: 2, 8 facts and 0 exclusive pairs.
+40 nodes created.
+
+----------------------------------------------------
+NO SOLUTION
+Problem not solvable: can't even reach non-mutex goals
+    Search halted after 0 steps
+    0 entries in hash table and 0 hits
+    avg set size 0
+----------------------------------------------------
 
 ####################################################
-goals at time 10:
-  at_package1_bos-po at_package2_bos-airport at_package3_la-po at_package4_la-airport at_package5_pgh-po 
-at_package6_pgh-airport at_package7_pgh-po at_package8_pgh-po 
-
-
-----------------------------------------------------
-Invoking solver graphplan
-Result is Unsat
-Iteration was 27012
-
-----------------------------------------------------
-Can't solve in 9 steps
-time: 10, 106 facts and 449 exclusive pairs.
-422 new nodes added.
-
-####################################################
-goals at time 11:
-  at_package1_bos-po at_package2_bos-airport at_package3_la-po at_package4_la-airport at_package5_pgh-po 
-at_package6_pgh-airport at_package7_pgh-po at_package8_pgh-po 
-
-
-----------------------------------------------------
-Invoking solver graphplan
-Result is Unsat
-Iteration was 29990469
-
-----------------------------------------------------
-Can't solve in 10 steps
-time: 11, 106 facts and 449 exclusive pairs.
-422 new nodes added.
-
-####################################################
-goals at time 12:
-  at_package1_bos-po at_package2_bos-airport at_package3_la-po at_package4_la-airport at_package5_pgh-po 
-at_package6_pgh-airport at_package7_pgh-po at_package8_pgh-po 
-
-
-----------------------------------------------------
-Invoking solver graphplan
-** Turning off completeness check **
-Result is Timeout
-Iteration was 37687300
-
-----------------------------------------------------
-Converting graph to wff
-number of action variables = 1243
-number of fluent variables = 547
-total number variables = 1790
-number clauses = 18026
-Result is Sat
-Iteration was 0
-Performing plan justification:
-   2 actions were pruned in 0.00 seconds
-
-----------------------------------------------------
-Begin plan
-1 (load-truck package7 bos-truck bos-po)
-1 (load-truck package2 pgh-truck pgh-po)
-1 (fly-airplane airplane2 pgh-airport la-airport)
-1 (load-truck package5 bos-truck bos-po)
-1 (load-truck package8 la-truck la-po)
-1 (load-truck package3 pgh-truck pgh-po)
-1 (load-truck package4 pgh-truck pgh-po)
-1 (load-truck package6 bos-truck bos-po)
-1 (load-truck package1 pgh-truck pgh-po)
-2 (drive-truck bos-truck bos-po bos-airport bos)
-2 (drive-truck pgh-truck pgh-po pgh-airport pgh)
-2 (drive-truck la-truck la-po la-airport la)
-3 (unload-truck package7 bos-truck bos-airport)
-3 (unload-truck package6 bos-truck bos-airport)
-3 (unload-truck package4 pgh-truck pgh-airport)
-3 (unload-truck package3 pgh-truck pgh-airport)
-3 (unload-truck package1 pgh-truck pgh-airport)
-3 (unload-truck package5 bos-truck bos-airport)
-3 (unload-truck package8 la-truck la-airport)
-4 (load-airplane package8 airplane2 la-airport)
-4 (load-airplane package1 airplane1 pgh-airport)
-4 (load-airplane package4 airplane1 pgh-airport)
-4 (load-airplane package3 airplane1 pgh-airport)
-5 (fly-airplane airplane2 la-airport bos-airport)
-5 (fly-airplane airplane1 pgh-airport bos-airport)
-6 (load-airplane package7 airplane2 bos-airport)
-6 (load-airplane package5 airplane2 bos-airport)
-6 (unload-airplane package1 airplane1 bos-airport)
-6 (load-airplane package6 airplane1 bos-airport)
-7 (unload-truck package2 pgh-truck pgh-airport)
-7 (fly-airplane airplane2 bos-airport pgh-airport)
-7 (fly-airplane airplane1 bos-airport la-airport)
-8 (unload-airplane package7 airplane2 pgh-airport)
-8 (unload-airplane package5 airplane2 pgh-airport)
-8 (unload-airplane package3 airplane1 la-airport)
-8 (unload-airplane package8 airplane2 pgh-airport)
-9 (load-truck package1 bos-truck bos-airport)
-9 (load-truck package8 pgh-truck pgh-airport)
-9 (load-truck package3 la-truck la-airport)
-9 (unload-airplane package4 airplane1 la-airport)
-9 (load-airplane package2 airplane2 pgh-airport)
-9 (load-truck package7 pgh-truck pgh-airport)
-9 (load-truck package5 pgh-truck pgh-airport)
-10 (drive-truck bos-truck bos-airport bos-po bos)
-10 (fly-airplane airplane2 pgh-airport bos-airport)
-10 (fly-airplane airplane1 la-airport pgh-airport)
-10 (drive-truck la-truck la-airport la-po la)
-10 (drive-truck pgh-truck pgh-airport pgh-po pgh)
-11 (unload-truck package8 pgh-truck pgh-po)
-11 (unload-truck package1 bos-truck bos-po)
-11 (unload-truck package7 pgh-truck pgh-po)
-11 (unload-airplane package6 airplane1 pgh-airport)
-11 (unload-truck package5 pgh-truck pgh-po)
-11 (unload-airplane package2 airplane2 bos-airport)
-11 (unload-truck package3 la-truck la-po)
-End plan
-----------------------------------------------------
-
-55 total actions in plan
-192443 entries in hash table, 12987223 hash hits, avg set size 18
-13179676 total set-creation steps (entries + hits + plan length - 1)
-19385361 actions tried
-
-####################################################
-Total elapsed time:   17.79 seconds
-Time in milliseconds: 17785
+Total elapsed time:   0.00 seconds
+Time in milliseconds: 0
 
 ####################################################
