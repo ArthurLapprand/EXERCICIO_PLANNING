@@ -1,40 +1,66 @@
 (define (domain logistics-typed)
   (:requirements :strips :typing) 
   (:types MACACO BANANA CAIXA ALTURA LOCALIZACAO)
-  (:predicates 	
+  (:predicates
 		(at ?obj ?loc)
 		(on ?obj1 ?obj2)
-		(in-city ?loc-or-truck ?city))
-  (:action LOAD-TRUCK
+		(not_holding ?obj1 ?obj2)
+		(at_altura ?obj ?altura)
+  (:action EMPURRAR_CAIXA
 	:parameters
-		 (?obj - PACKAGE
-		  ?truck - TRUCK
-		  ?loc - LOCATION)
-	:precondition
-		(and 	(at ?truck ?loc) 
-			(at ?obj ?loc))
-	:effect
-		(and 	(not (at ?obj ?loc)) 
-			(in ?obj ?truck)))
-
-  (:action LOAD-AIRPLANE
-	:parameters
-		(?obj - PACKAGE
-		 ?airplane - AIRPLANE
-		 ?loc - AIRPORT)
+		 (?caixa - CAIXA
+		  ?banana - BANANA
+		  ?macaco - MACACO
+		  ?loc - LOCALIZACAO
+		  ?loc2 - LOCALIZACAO
+		  ?altura - ALTURA)
 	:precondition
 		(and
-			(at ?obj ?loc) 
-			(at ?airplane ?loc))
+			(not_holding ?macaco ?banana)
+			(at ?macaco ?loc)
+			(at ?caixa ?loc)
+			(at_altura ?macaco ?altura)
+			(at_altura ?caixa ?altura))
 	:effect
-   		(and 	(not (at ?obj ?loc)) 
-			(in ?obj ?airplane)))
+		(and
+			(at ?caixa ?loc2)
+			(at ?macaco ?loc2)
+			(at_altura ?macaco ?altura)
+			(at_altura ?caixa ?altura)
+			(not(at ?caixa ?loc)) 
+			(not(at ?macaco ?loc))))
 
-  (:action UNLOAD-TRUCK
+  (:action ANDAR_COM_BANANA
 	:parameters
-		(?obj - PACKAGE
-		 ?truck - TRUCK
-		 ?loc - LOCATION)
+		(?caixa - CAIXA
+		 ?banana - BANANA
+		 ?macaco - MACACO
+		 ?loc - LOCALIZACAO
+		 ?loc2 - LOCALIZACAO
+		 ?altura - ALTURA)
+	:precondition
+		(and
+			(at ?macaco ?loc) 
+			(at ?banana ?loc)
+			not(not_holding ?macaco ?banana))
+			(at_altura ?macaco ?altura)
+			(at_altura ?banana ?altura)
+	:effect
+   		(and
+   			(not (at ?macaco ?loc))
+   			(not (at ?banana ?loc))
+   			(at_altura ?macaco ?altura)
+			(at_altura ?banana ?altura)
+			(at ?macaco ?loc2)
+			(at ?banana ?loc2)))
+
+  (:action PEGAR_BANANA
+	:parameters
+		(?caixa - CAIXA
+		 ?banana - BANANA
+		 ?macaco - MACACO
+		 ?loc - LOCALIZACAO
+		 ?altura - ALTURA)
 	:precondition
 		(and    (at ?truck ?loc) 
 			(in ?obj ?truck))
