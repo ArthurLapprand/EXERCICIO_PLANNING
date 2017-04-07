@@ -24,17 +24,33 @@
 			(at_altura ?caixa ?altura))
 	:effect
 		(and
-			(at ?caixa ?loc2)
-			(at ?macaco ?loc2)
-			(at_altura ?macaco ?altura)
-			(at_altura ?caixa ?altura)
 			(not(at ?caixa ?loc)) 
-			(not(at ?macaco ?loc))))
+			(not(at ?macaco ?loc))
+			(at ?caixa ?loc2)
+			(at ?macaco ?loc2)))
 
-  (:action ANDAR_COM_BANANA
+(:action ANDAR_SEM_BANANA
 	:parameters
 		(?caixa - CAIXA
 		 ?banana - BANANA
+		 ?macaco - MACACO
+		 ?loc - LOCALIZACAO
+		 ?loc2 - LOCALIZACAO
+		 ?altura - ALTURA)
+	:precondition
+		(and
+			(at ?macaco ?loc)
+			(not_holding ?macaco ?banana)
+			(at_altura ?macaco ?altura)
+			(at_altura ?caixa ?altura))
+	:effect
+   		(and
+   			(not (at ?macaco ?loc))
+   			(at ?macaco ?loc2)))
+
+  (:action ANDAR_COM_BANANA
+	:parameters
+		(?banana - BANANA
 		 ?macaco - MACACO
 		 ?loc - LOCALIZACAO
 		 ?loc2 - LOCALIZACAO
@@ -94,23 +110,33 @@
 		(and
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
+			(on ?macaco ?caixa)
+			(not(at_altura ?macaco ?altura))
 			(at_altura ?macaco ?altura2)))
 
-(:action DESCER_CAIXA
+(:action DESCER_CAIXA_COM_BANANA
 	:parameters
 		(?caixa - CAIXA
 		 ?macaco - MACACO
+		 ?banana - BANANA
 		 ?loc - LOCALIZACAO
 		 ?altura - ALTURA
 		 ?altura2 - ALTURA)
 	:precondition
 		(and
+			(on ?macaco ?caixa)
+			(not(not_holding ?macaco ?banana))
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
-			(at_altura ?macaco ?altura2))
+			(at_altura ?macaco ?altura)
+			(at_altura ?banana ?altura))
 	:effect
 		(and
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
-			(at_altura ?macaco ?altura)))
+			(not(at_altura ?macaco ?altura))
+			(not(at_altura ?banana ?altura))
+			(not(on ?macaco ?caixa))
+			(at_altura ?macaco ?altura2)
+			(at_altura ?banana ?altura2)))
 )

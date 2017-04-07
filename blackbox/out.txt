@@ -1,5 +1,5 @@
 blackbox version 42
-command line:  blackbox -o monkey_domain.pddl -f  monkey_facts.pddl
+command line:  blackbox -o monkey_domain.pddl -f monkey_facts.pddl
 
 Begin solver specification
     -maxint        0   -maxsec 10.000000  graphplan
@@ -9,20 +9,46 @@ Loading domain file: monkey_domain.pddl
 Loading fact file: monkey_facts.pddl
 Problem name: macacos-me-mordam
 Facts loaded.
-time: 1, 8 facts and 0 exclusive pairs.
-time: 2, 8 facts and 0 exclusive pairs.
-40 nodes created.
+time: 1, 10 facts and 3 exclusive pairs.
+time: 2, 14 facts and 20 exclusive pairs.
+time: 3, 14 facts and 7 exclusive pairs.
+time: 4, 15 facts and 11 exclusive pairs.
+time: 5, 18 facts and 29 exclusive pairs.
+Goals reachable at 5 steps but mutually exclusive.
+time: 6, 18 facts and 19 exclusive pairs.
+Goals first reachable in 6 steps.
+291 nodes created.
+
+####################################################
+goals at time 7:
+  at_macaco_a at_banana_a at-altura_macaco_baixa at-altura_banana_baixa 
+
 
 ----------------------------------------------------
-NO SOLUTION
-Problem not solvable: can't even reach non-mutex goals
-    Search halted after 0 steps
-    0 entries in hash table and 0 hits
-    avg set size 0
+Invoking solver graphplan
+Result is Sat
+Iteration was 47
+Performing plan justification:
+   0 actions were pruned in 0.00 seconds
+
 ----------------------------------------------------
+Begin plan
+1 (andar-sem-banana caixa banana macaco a b baixa)
+2 (empurrar-caixa caixa banana macaco b c baixa)
+3 (subir-caixa caixa macaco c baixa alta)
+4 (pegar-banana caixa banana macaco c alta)
+5 (descer-caixa-com-banana caixa macaco banana c alta baixa)
+6 (andar-com-banana banana macaco c a baixa)
+End plan
+----------------------------------------------------
+
+6 total actions in plan
+3 entries in hash table, 0 hash hits, avg set size 6
+8 total set-creation steps (entries + hits + plan length - 1)
+9 actions tried
 
 ####################################################
 Total elapsed time:   0.00 seconds
-Time in milliseconds: 0
+Time in milliseconds: 3
 
 ####################################################

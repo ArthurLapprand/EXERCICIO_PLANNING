@@ -10,6 +10,9 @@
         a - LOCALIZACAO
         b - LOCALIZACAO
         c - LOCALIZACAO
+
+        baixa - ALTURA
+        alta - ALTURA
     )
     (:init
         (not_holding macaco banana)
