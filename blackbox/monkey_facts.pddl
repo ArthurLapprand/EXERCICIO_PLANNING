@@ -3,7 +3,7 @@
     (:objects
         macaco - MACACO
 
-        banana - BANANA
+        banana - OBJETO
 
         caixa - CAIXA
 
@@ -28,8 +28,9 @@
     )
     (:goal (and
         (at macaco a)
-        (at banana a)
-        (at_altura macaco baixa)
         (at_altura banana baixa)
+        (at banana a)     
+        (at_altura macaco baixa)
+        ;;(at_altura banana baixa)
     ))
 )

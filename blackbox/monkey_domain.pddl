@@ -1,6 +1,6 @@
 (define (domain logistics-typed)
   (:requirements :strips :typing) 
-  (:types MACACO BANANA CAIXA ALTURA LOCALIZACAO)
+  (:types MACACO OBJETO CAIXA ALTURA LOCALIZACAO)
   (:predicates
 		(at ?obj ?loc)
 		(on ?obj1 ?obj2)
@@ -10,14 +10,13 @@
   (:action EMPURRAR_CAIXA
 	:parameters
 		 (?caixa - CAIXA
-		  ?banana - BANANA
 		  ?macaco - MACACO
 		  ?loc - LOCALIZACAO
 		  ?loc2 - LOCALIZACAO
 		  ?altura - ALTURA)
 	:precondition
 		(and
-			(not_holding ?macaco ?banana)
+			(not_holding ?macaco banana)
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
 			(at_altura ?macaco ?altura)
@@ -29,114 +28,107 @@
 			(at ?caixa ?loc2)
 			(at ?macaco ?loc2)))
 
-(:action ANDAR_SEM_BANANA
+(:action ANDAR_SEM_OBJETO
 	:parameters
-		(?caixa - CAIXA
-		 ?banana - BANANA
+		(
 		 ?macaco - MACACO
 		 ?loc - LOCALIZACAO
-		 ?loc2 - LOCALIZACAO
-		 ?altura - ALTURA)
+		 ?loc2 - LOCALIZACAO)
 	:precondition
 		(and
 			(at ?macaco ?loc)
-			(not_holding ?macaco ?banana)
-			(at_altura ?macaco ?altura)
-			(at_altura ?caixa ?altura))
+			(not_holding ?macaco banana)
+			(at_altura ?macaco baixa)
+			)
 	:effect
    		(and
    			(not (at ?macaco ?loc))
    			(at ?macaco ?loc2)))
 
-  (:action ANDAR_COM_BANANA
+  (:action ANDAR_COM_OBJETO
 	:parameters
-		(?banana - BANANA
+		(?objeto - OBJETO
 		 ?macaco - MACACO
 		 ?loc - LOCALIZACAO
 		 ?loc2 - LOCALIZACAO
-		 ?altura - ALTURA)
+		 )
 	:precondition
 		(and
 			(at ?macaco ?loc) 
-			(at ?banana ?loc)
-			(not(not_holding ?macaco ?banana))
-			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura))
+			(at ?objeto ?loc)
+			;; (not(not_holding ?macaco banana))
+			(at_altura ?macaco baixa)
+			(at_altura ?objeto baixa))
 	:effect
    		(and
    			(not (at ?macaco ?loc))
-   			(not (at ?banana ?loc))
-   			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura)
-			(at ?macaco ?loc2)
-			(at ?banana ?loc2)))
+   			(not (at ?objeto ?loc))
+   			(at ?macaco ?loc2)
+			(at ?objeto ?loc2)))
 
-  (:action PEGAR_BANANA
+  (:action PEGAR_OBJETO
 	:parameters
 		(?caixa - CAIXA
-		 ?banana - BANANA
+		 ?objeto - OBJETO
 		 ?macaco - MACACO
 		 ?loc - LOCALIZACAO
 		 ?altura - ALTURA)
 	:precondition
 		(and
 			(at ?macaco ?loc)
-			(at ?banana ?loc)
+			(at ?objeto ?loc)
 			(on ?macaco ?caixa)
-			(not_holding ?macaco ?banana)
+			(not_holding ?macaco ?objeto)
 			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura))
+			(at_altura ?objeto ?altura))
 	:effect
 		(and
 			(at ?macaco ?loc)
-			(at ?banana ?loc)
-			(not(not_holding ?macaco ?banana))
+			(at ?objeto ?loc)
+			(not(not_holding ?macaco ?objeto))
 			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura)))
+			(at_altura ?objeto ?altura)))
 
   (:action SUBIR_CAIXA
 	:parameters
 		(?caixa - CAIXA
 		 ?macaco - MACACO
-		 ?loc - LOCALIZACAO
-		 ?altura - ALTURA
-		 ?altura2 - ALTURA)
+		 ?loc - LOCALIZACAO)
 	:precondition
 		(and
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
-			(at_altura ?macaco ?altura))
+			(at_altura ?macaco baixa)
+			(at_altura ?caixa baixa))
 	:effect
 		(and
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
 			(on ?macaco ?caixa)
-			(not(at_altura ?macaco ?altura))
-			(at_altura ?macaco ?altura2)))
+			(not (at_altura ?macaco baixa)) 
+			(at_altura ?macaco alta)))
 
-(:action DESCER_CAIXA_COM_BANANA
+(:action DESCER_CAIXA_COM_OBJETO
 	:parameters
 		(?caixa - CAIXA
 		 ?macaco - MACACO
-		 ?banana - BANANA
-		 ?loc - LOCALIZACAO
-		 ?altura - ALTURA
-		 ?altura2 - ALTURA)
+		 ?objeto - OBJETO
+		 ?loc - LOCALIZACAO)
 	:precondition
 		(and
 			(on ?macaco ?caixa)
-			(not(not_holding ?macaco ?banana))
+			(not(not_holding ?macaco ?objeto))
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
-			(at_altura ?macaco ?altura)
-			(at_altura ?banana ?altura))
+			(at_altura ?macaco alta)
+			(at_altura ?objeto alta))
 	:effect
 		(and
 			(at ?macaco ?loc)
 			(at ?caixa ?loc)
-			(not(at_altura ?macaco ?altura))
-			(not(at_altura ?banana ?altura))
 			(not(on ?macaco ?caixa))
-			(at_altura ?macaco ?altura2)
-			(at_altura ?banana ?altura2)))
+			(not (at_altura ?macaco alta))
+			(not (at_altura ?objeto alta))
+			(at_altura ?macaco baixa)
+			(at_altura ?objeto baixa)))
 )
